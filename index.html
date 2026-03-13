@@ -1,32 +1,474 @@
-<!doctype html>
+<!DOCTYPE html> 
+<!-- Khai báo đây là tài liệu HTML5 -->
+
 <html>
+<!-- Thẻ gốc của trang web -->
+
 <head>
-	<meta charset="utf-8">
-	<title>Thiết kế web</title>
+<!-- Phần đầu trang: chứa tiêu đề, CSS, meta -->
+
+<meta charset="UTF-8">
+<!-- Thiết lập bảng mã UTF-8 để hiển thị tiếng Việt đúng -->
+
+<title>Phần mềm đếm phiếu</title>
+<!-- Tiêu đề hiển thị trên tab trình duyệt -->
+
+<style>
+/* =========================
+   PHẦN CSS THIẾT KẾ GIAO DIỆN
+   ========================= */
+
+/* thiết lập toàn bộ trang */
+
+body{
+    font-family: Arial; /* font chữ */
+    margin:40px; /* khoảng cách lề */
+    background:#2f3433; /* màu nền */
+}
+
+/* tiêu đề chính */
+
+h2{
+    text-align:center; /* căn giữa */
+    color:#fefaf8; /* màu chữ */
+}
+
+/* dòng mô tả bên dưới tiêu đề */
+
+.sub{
+    text-align:center; /* căn giữa */
+    font-weight:bold; /* chữ đậm */
+    margin-bottom:20px; /* khoảng cách phía dưới */
+    color: #ecff07;
+}
+
+/* tiêu đề nhóm tổ hợp */
+
+.tieude{
+    margin-top:25px; /* cách phía trên */
+    font-weight:bold; /* chữ đậm */
+    font-size:18px; /* kích thước chữ */
+    color: #07ff42;
+}
+
+/* khu vực chứa các ô */
+
+.grid{
+    display:flex;            /* dùng flexbox */
+    flex-wrap:wrap;          /* tự xuống dòng */
+    max-width:950px;         /* chiều rộng tối đa */
+    margin:auto;             /* căn giữa khối */
+    justify-content:center;  /* căn giữa các ô bên trong */
+}
+
+/* từng ô nhập */
+
+.box{
+    border:1px solid #ccc; /* viền */
+    padding:10px; /* khoảng cách bên trong */
+    margin:6px; /* khoảng cách giữa các ô */
+    width:100px; /* chiều rộng */
+    text-align:center; /* căn giữa */
+    background:white; /* nền trắng */
+    border-radius:8px; /* bo góc */
+}
+
+/* ô input */
+
+.box input{
+    width:60px; /* chiều rộng */
+    text-align:center; /* căn giữa số */
+}
+
+/* nút bấm */
+
+button{
+    padding:10px 20px; /* khoảng cách trong nút */
+    font-size:16px; /* cỡ chữ */
+    margin-top:20px; /* khoảng cách phía trên */
+    margin-right:10px; /* khoảng cách giữa nút */
+    border:none; /* bỏ viền */
+    border-radius:6px; /* bo góc */
+    cursor:pointer; /* con trỏ tay */
+}
+
+/* nút đếm phiếu */
+
+button:first-of-type{
+    background:#27ae60; /* màu xanh */
+    color:white; /* chữ trắng */
+}
+
+/* nút xóa */
+
+button:last-of-type{
+    background:#e74c3c; /* màu đỏ */
+    color:white;
+}
+
+/* khu vực hiển thị kết quả */
+
+#ketqua{
+    margin-top:30px; /* khoảng cách phía trên */
+    background:white; /* nền trắng */
+    padding:20px; /* khoảng cách bên trong */
+    border-radius:10px; /* bo góc */
+    background: #f8ffa0;
+}
+
+/* màu tên */
+
+.ten{
+    color:#0077cc;
+    font-weight:bold;
+}
+
+/* màu số phiếu */
+
+.phieu{
+    color:red;
+    font-weight:bold;
+    font-size:18px;
+}
+
+/* màu phần trăm */
+
+.phantram{
+    color: #080808;
+    font-weight:bold;
+}
+
+/* bảng */
+
+table{
+    border-collapse:collapse; /* gộp viền */
+    width:100%; /* rộng hết */
+    margin-top:15px;
+}
+
+/* ô bảng */
+
+th,td{
+    border:1px solid #ccc;
+    padding:8px;
+    text-align:center;
+}
+
+/* tiêu đề bảng */
+
+th{
+    background:#3498db;
+    color:white;
+}
+
+</style>
+
 </head>
+
 <body>
-    <h2 style="text-align: center">20242014TPE5 - Bùi Thanh Tuấn</h2>
-	<div style="text-align: center;">
-		<div style="display: inline-block;">
-			<h3><a href="web.html">HTML</a></h3>
-			<img src="images/html.jpg" width="120px" height="180px" >
-		</div>
-		<div style="display: inline-block;">
-			<h3><a href="css.html">CSS</a></h3>
-			<img src="images/css.jpg" width="120px" height="180px">
-		</div>
-		<div style="display: inline-block;">
-			<h3><a href="javascript.html">Javascript</a></h3>
-			<img src="images/javascript.jpg" width="120px" height="180px">
-		</div>
-		<div style="display: inline-block;">
-			<h3><a href="jquery.html">jQuery</a></h3>
-			<img src="images/jQuery.jpg" width="120px" height="180px">
-		</div>
-	</div>
+
+<h2>PHẦN MỀM ĐẾM PHIẾU ỨNG CỬ VIÊN HĐND TỈNH GIA LAI</h2>
+<!-- tiêu đề chính -->
+
+<div class="sub">(Khu vực bỏ phiếu số 13 – Đơn vị bầu cử số 7)</div>
+
+<p>Nhập số phiếu vào từng ô</p>
+
+<div id="khuvuc"></div>
+<!-- JavaScript sẽ tạo các ô nhập tại đây -->
+
+<button onclick="demPhieu()">ĐẾM PHIẾU</button>
+<!-- khi bấm gọi hàm demPhieu() -->
+
+<button onclick="resetPhieu()">XÓA</button>
+<!-- khi bấm gọi hàm resetPhieu() -->
+
+<div id="ketqua"></div>
+<!-- nơi hiển thị kết quả -->
+
+<script>
+
+/* =============================
+   DANH SÁCH TÊN ỨNG CỬ VIÊN
+   ============================= */
+
+let tenNguoi=[
+"", // phần tử 0 bỏ trống để đánh số từ 1
+" Nguyễn Thị Thu Huệ",
+" Nguyễn Văn Hưng",
+" Phạm Dũng Luận",
+" Nguyễn Ngọc Lương",
+" Trần Thị Quyền",
+" Lê Thị Tuyết Trinh",
+" Nguyễn Hà Trung",
+" Bạch Thanh Vân"
+];
+
+
+/* =============================
+   MẢNG LƯU TẤT CẢ TỔ HỢP
+   ============================= */
+
+let toHop=[]; 
+// mảng này sẽ lưu các tổ hợp gạch tên
+
+
+/* =============================
+   HÀM TẠO TỔ HỢP
+   ============================= */
+
+function taoToHop(k){
+
+    let kq=[]; 
+    // mảng lưu kết quả
+
+    function dequy(start,combo){
+    // hàm đệ quy tạo tổ hợp
+
+        if(combo.length==k){
+        // nếu số phần tử = k
+
+            kq.push([...combo]);
+            // sao chép combo vào mảng kết quả
+
+            return;
+        }
+
+        for(let i=start;i<=8;i++){
+        // duyệt từ start → 8
+
+            combo.push(i);
+            // thêm số vào tổ hợp
+
+            dequy(i+1,combo);
+            // gọi lại hàm để tạo tiếp
+
+            combo.pop();
+            // quay lui (xóa phần tử cuối)
+
+        }
+
+    }
+
+    dequy(1,[]);
+    // bắt đầu từ số 1
+
+    return kq;
+}
+
+
+/* =============================
+   TẠO GIAO DIỆN NHẬP PHIẾU
+   ============================= */
+
+let khu=document.getElementById("khuvuc");
+// lấy div chứa khu vực nhập
+
+for(let m=3;m<=7;m++){
+// tạo nhóm gạch từ 3 → 7
+
+    let title=document.createElement("div");
+    // tạo thẻ div tiêu đề
+
+    title.className="tieude";
+    // gán class CSS
+
+    title.innerHTML="Gạch "+m+" người";
+    // nội dung tiêu đề
+
+    khu.appendChild(title);
+    // thêm vào trang
+
+    let grid=document.createElement("div");
+    grid.className="grid";
+
+    khu.appendChild(grid);
+
+    let list=taoToHop(m);
+    // tạo danh sách tổ hợp
+
+    list.forEach(function(combo){
+
+        toHop.push(combo);
+        // lưu tổ hợp vào mảng chính
+
+        let index=toHop.length-1;
+        // vị trí của tổ hợp
+
+        let div=document.createElement("div");
+        div.className="box";
+
+        div.innerHTML="<b>"+combo.join(",")+"</b><br><br><input type='number' id='o"+index+"' value='0'>";
+        // hiển thị tổ hợp + ô nhập
+
+        grid.appendChild(div);
+
+    });
+
+}
+
+
+/* =============================
+   HÀM ĐẾM PHIẾU
+   ============================= */
+
+function demPhieu(){
+
+    let phieu=[0,0,0,0,0,0,0,0,0];
+    // mảng lưu phiếu cho 8 người
+
+    let tongPhieu=0;
+    // tổng số phiếu
+
+    let tongLuotBau=0;
+    // tổng lượt bầu
+
+    for(let i=0;i<toHop.length;i++){
+
+        let so=Number(document.getElementById("o"+i).value);
+        // lấy số phiếu nhập
+
+        if(so==0) continue;
+        // nếu bằng 0 thì bỏ qua
+
+        tongPhieu+=so;
+        // cộng vào tổng phiếu
+
+        let combo=toHop[i];
+        // tổ hợp bị gạch
+
+        let soNguoiBau=8-combo.length;
+        // số người được bầu
+
+        tongLuotBau+=so*soNguoiBau;
+
+        for(let j=1;j<=8;j++){
+
+            if(!combo.includes(j)){
+            // nếu người này không bị gạch
+
+                phieu[j]+=so;
+                // cộng phiếu
+
+            }
+
+        }
+
+    }
+
+
+/* =============================
+   HIỂN THỊ BẢNG KẾT QUẢ
+   ============================= */
+
+let text="";
+
+text+="<b>Tổng phiếu: "+tongPhieu+"</b><br>";
+
+text+="<b>Tổng lượt bầu: "+tongLuotBau+"</b>";
+
+text+="<table>";
+
+text+="<tr><th>STT</th><th>Ứng cử viên</th><th>Số phiếu</th><th>%</th></tr>";
+
+/* mảng để tính TOP 5 */
+
+let mangTop=[];
+
+for(let i=1;i<=8;i++){
+
+    let tile=0;
+
+    if(tongLuotBau>0){
+
+        tile=(phieu[i]/tongLuotBau*100).toFixed(2);
+
+    }
+
+    text+="<tr>";
+
+    text+="<td>"+i+".</td>";
+    // hiển thị dạng 1. 2. 3.
+
+    text+="<td class='ten'>"+tenNguoi[i]+"</td>";
+
+    text+="<td class='phieu'>"+phieu[i]+"</td>";
+
+    text+="<td class='phantram'>"+tile+"%</td>";
+
+    text+="</tr>";
+
+    /* lưu vào mảng top */
+
+    mangTop.push({
+        ten:tenNguoi[i],
+        phieu:phieu[i],
+        pt:tile
+    });
+
+}
+
+text+="</table>";
+
+
+/* =============================
+   TÍNH TOP 5
+   ============================= */
+
+mangTop.sort(function(a,b){
+return b.phieu-a.phieu;
+});
+// sắp xếp giảm dần theo phiếu
+
+
+text+="<h3>TOP 5 NGƯỜI CÓ SỐ PHIẾU CAO NHẤT</h3>";
+
+text+="<table>";
+
+text+="<tr><th>Hạng</th><th>Ứng cử viên</th><th>Số phiếu</th><th>%</th></tr>";
+
+for(let i=0;i<5;i++){
+
+text+="<tr>";
+
+text+="<td>"+(i+1)+".</td>";
+
+text+="<td class='ten'>"+mangTop[i].ten+"</td>";
+
+text+="<td class='phieu'>"+mangTop[i].phieu+"</td>";
+
+text+="<td class='phantram'>"+mangTop[i].pt+"%</td>";
+
+text+="</tr>";
+
+}
+
+text+="</table>";
+
+document.getElementById("ketqua").innerHTML=text;
+
+}
+
+
+/* =============================
+   HÀM RESET
+   ============================= */
+
+function resetPhieu(){
+
+    for(let i=0;i<toHop.length;i++){
+
+        document.getElementById("o"+i).value=0;
+        // đưa tất cả ô về 0
+
+    }
+
+    document.getElementById("ketqua").innerHTML="";
+    // xóa kết quả
+
+}
+
+</script>
+
 </body>
 </html>
-
-
-
-
