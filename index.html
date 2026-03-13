@@ -109,12 +109,18 @@ button:last-of-type{
 /* khu vực hiển thị kết quả */
 
 #ketqua{
-    margin-top:30px; /* khoảng cách phía trên */
+    /*margin-top:30px; /* khoảng cách phía trên */
     background:white; /* nền trắng */
     padding:20px; /* khoảng cách bên trong */
     border-radius:10px; /* bo góc */
     background: #f8ffa0;
     display:none; /* thêm dòng này */
+   */
+   display:none;
+    margin-top:30px;
+    padding:20px;
+    border-radius:10px;
+    background:#f8ffa0;
 }
 
 /* màu tên */
@@ -477,6 +483,7 @@ function resetPhieu(){
     }
 
     document.getElementById("ketqua").innerHTML="";
+    document.getElementById("ketqua").style.display="none";
     // xóa kết quả
 
 }
